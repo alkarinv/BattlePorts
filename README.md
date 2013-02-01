@@ -1,4 +1,4 @@
-![BattlePorts]
+BattlePorts
 ==========
 
 A lightweight Bukkit Port system for Admins and Players.
