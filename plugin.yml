@@ -1,0 +1,11 @@
+name: BattlePorts
+main: mc.alk.battlePorts.BattlePorts
+authors: [MCForger, Alkarin_v]
+depend: [Vault, WorldEdit, WorldGuard]
+version: 1.0
+description: A Simple Portal Plugin For Bukkit!
+commands:
+  portal:
+    description: A portal command!
+  port:
+    description: A shorter term =P

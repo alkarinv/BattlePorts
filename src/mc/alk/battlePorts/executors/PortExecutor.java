@@ -29,6 +29,7 @@ import com.sk89q.worldedit.bukkit.selections.Selection;
 public class PortExecutor extends CustomCommandExecutor
 {
 	private WorldEditPlugin wep;
+	private final BattlePorts plugin;
 	final static String PORT_SET_OPTIONS = "&6/port setoptions <portname> <option_1> ... <option_x>";
 	private static final String PORT_ADD_OPTIONS = "&6/port addoptions <portname> <option_1> ... <option_x>";
 	private static final String PORT_ALTER_DEST = "&6/port dest <portname>";
@@ -42,9 +43,10 @@ public class PortExecutor extends CustomCommandExecutor
 	private static final String PORT_SAVE = "&6/port save";
 	private static final String PORT_ALTER_SOURCE = "&6/portal source <portname>";
 
-	public PortExecutor(PortController pc)
+	public PortExecutor(PortController pc, BattlePorts main)
 	{
 		super(pc);
+		plugin = main;
 	}
 
 	public void setWorldEditPlugin(WorldEditPlugin wep)
@@ -80,14 +82,14 @@ public class PortExecutor extends CustomCommandExecutor
 	@MCCommand(cmds = { "save" }, op = true, usage = PORT_SAVE)
 	public boolean portSave(CommandSender sender)
 	{
-		BattlePorts.save();
+		plugin.saveSerializers();
 		return sendMessage(sender, "&ePorts saved");
 	}
 
 	@MCCommand(cmds = { "reload" }, op = true, usage = "port reload")
 	public boolean portReload(CommandSender sender)
 	{
-		BattlePorts.load();
+		plugin.handleExternalPlugins();
 		return sendMessage(sender, "&ePorts reloaded");
 	}
 

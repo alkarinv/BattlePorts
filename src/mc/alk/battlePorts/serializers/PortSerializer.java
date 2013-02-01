@@ -25,17 +25,22 @@ import org.bukkit.configuration.ConfigurationSection;
  */
 public class PortSerializer extends YamlSerializer
 {
-	PortController pc;
+	private final PortController pc;
+	private final BattlePorts plugin;
 
-	public PortSerializer(PortController pc)
+	public PortSerializer(PortController pc, BattlePorts main)
 	{
 		this.pc = pc;
+		plugin = main;
 	}
 
 	@Override
 	public void loadAll()
 	{
-		loadAll(pc);
+		if (pc != null)
+		{
+			loadAll(pc);
+		}
 	}
 
 	@Override
@@ -49,8 +54,6 @@ public class PortSerializer extends YamlSerializer
 		reloadConfig();
 		pc.clearPorts();
 		ConfigurationSection maincs = config.getConfigurationSection("ports");
-		// System.out.println("maincs" + maincs + " file=" +
-		// f.getAbsolutePath());
 		int count = 0;
 		if (maincs != null)
 		{ // / No ports
@@ -77,7 +80,7 @@ public class PortSerializer extends YamlSerializer
 					}
 				}
 			}
-			Log.info(BattlePorts.getVersion() + " Loaded " + count + " ports");
+			Log.info(plugin.getVersion() + " Loaded " + count + " ports");
 		}
 
 		count = 0;
@@ -109,7 +112,7 @@ public class PortSerializer extends YamlSerializer
 					}
 				}
 			}
-			Log.info(BattlePorts.getVersion() + " Loaded " + count
+			Log.info(plugin.getVersion() + " Loaded " + count
 					+ " player portals");
 
 		}

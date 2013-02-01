@@ -16,7 +16,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public abstract class YamlSerializer
 {
 	File f = null;
-	public FileConfiguration config;
+	public FileConfiguration config = null;
 
 	public void setConfig(File f)
 	{
@@ -34,6 +34,10 @@ public abstract class YamlSerializer
 
 	protected void reloadConfig()
 	{
+		if (config == null || f == null)
+		{
+			return;
+		}
 		try
 		{
 			config.load(f);

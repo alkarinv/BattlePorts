@@ -11,6 +11,11 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
-        <javaElement handleIdentifier="=BattlePorts"/>
+        <folder path="/BattlePorts/default_files"/>
+        <file path="/BattlePorts/README.md"/>
+        <javaElement handleIdentifier="=BattlePorts/src"/>
+        <file path="/BattlePorts/.classpath"/>
+        <file path="/BattlePorts/plugin.yml"/>
+        <file path="/BattlePorts/.project"/>
     </selectedElements>
 </jardesc>
