@@ -7,15 +7,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class EffectUtil {
+public class EffectUtil
+{
 	static final String version = "2.0";
-	static final HashMap<PotionEffectType,String> effectToName = new HashMap<PotionEffectType,String>();
-	static final HashMap<String,PotionEffectType> nameToEffect= new HashMap<String,PotionEffectType>();
-	static{
+	static final HashMap<PotionEffectType, String> effectToName = new HashMap<PotionEffectType, String>();
+	static final HashMap<String, PotionEffectType> nameToEffect = new HashMap<String, PotionEffectType>();
+	static
+	{
 		effectToName.put(PotionEffectType.FAST_DIGGING, "HASTE");
-		effectToName.put(PotionEffectType.SLOW_DIGGING,"SLOWSWING");
-		effectToName.put(PotionEffectType.SLOW,"SLOWNESS");
-		effectToName.put(PotionEffectType.SLOW_DIGGING,"SLOWDIG");
+		effectToName.put(PotionEffectType.SLOW_DIGGING, "SLOWSWING");
+		effectToName.put(PotionEffectType.SLOW, "SLOWNESS");
+		effectToName.put(PotionEffectType.SLOW_DIGGING, "SLOWDIG");
 		effectToName.put(PotionEffectType.INCREASE_DAMAGE, "STRENGTH");
 		effectToName.put(PotionEffectType.REGENERATION, "REGEN");
 		effectToName.put(PotionEffectType.DAMAGE_RESISTANCE, "RESISTANCE");
@@ -31,17 +33,20 @@ public class EffectUtil {
 		nameToEffect.put("PROT", PotionEffectType.DAMAGE_RESISTANCE);
 	}
 
-	public static PotionEffectType getEffect(String buffName){
+	public static PotionEffectType getEffect(String buffName)
+	{
 		buffName = buffName.toUpperCase();
 		PotionEffectType type = PotionEffectType.getByName(buffName);
-		if (type != null){
+		if (type != null)
+		{
 			return type;
 		}
 		if (nameToEffect.containsKey(buffName))
 			return nameToEffect.get(buffName);
 		buffName = buffName.replaceAll("_", "");
 		type = PotionEffectType.getByName(buffName);
-		if (type != null){
+		if (type != null)
+		{
 			return type;
 		}
 		if (nameToEffect.containsKey(buffName))
@@ -49,53 +54,85 @@ public class EffectUtil {
 		return null;
 	}
 
-	public static String getCommonName(PotionEffect effect){
+	public static String getCommonName(PotionEffect effect)
+	{
 		if (effectToName.containsKey(effect.getType()))
 			return effectToName.get(effect.getType()).toLowerCase();
 		return effect.getType().getName().toLowerCase();
 	}
 
-	public static void enchantPlayer(Player player, List<PotionEffect> ewas){
-		for (PotionEffect ewa : ewas){
-			if (player.hasPotionEffect(ewa.getType())){
+	public static void enchantPlayer(Player player, List<PotionEffect> ewas)
+	{
+		for (PotionEffect ewa : ewas)
+		{
+			if (player.hasPotionEffect(ewa.getType()))
+			{
 				player.removePotionEffect(ewa.getType());
 			}
 			player.addPotionEffect(ewa);
 		}
 	}
 
-	public static String getEnchantString(List<PotionEffect> effects){
+	public static String getEnchantString(List<PotionEffect> effects)
+	{
 		StringBuilder sb = new StringBuilder();
 		boolean first = true;
-		for (PotionEffect pe : effects){
+		for (PotionEffect pe : effects)
+		{
 			int str = pe.getAmplifier();
 			int tim = pe.getDuration();
-			if (!first) sb.append(", ");
-			String commonName = getCommonName(pe) +":" + (str+1)+":"+tim/20;
+			if (!first)
+				sb.append(", ");
+			String commonName = getCommonName(pe) + ":" + (str + 1) + ":" + tim
+					/ 20;
 			sb.append(commonName);
 			first = false;
 		}
 		return sb.toString();
 	}
 
-	public static PotionEffect parseArg(String arg, int defaultStrength, int defaultTime) {
+	public static PotionEffect parseArg(String arg, int defaultStrength,
+			int defaultTime)
+	{
 		arg = arg.replaceAll(",", ":");
 		String split[] = arg.split(":");
 		PotionEffectType type = getEffect(split[0]);
 		if (type == null)
-			throw new IllegalArgumentException("PotionEffectType "+ arg +" not found");
+			throw new IllegalArgumentException("PotionEffectType " + arg
+					+ " not found");
 		Integer strength = defaultStrength;
 		Integer time = defaultTime;
-		if (split.length > 1){try{strength = Integer.valueOf(split[1]) -1;} catch (Exception e){}}
-		if (split.length > 2){try{time = Integer.valueOf(split[2])*20/*ticks*/;} catch (Exception e){}}
-		return new PotionEffect(type,time, strength);
+		if (split.length > 1)
+		{
+			try
+			{
+				strength = Integer.valueOf(split[1]) - 1;
+			}
+			catch (Exception e)
+			{
+			}
+		}
+		if (split.length > 2)
+		{
+			try
+			{
+				time = Integer.valueOf(split[2]) * 20/* ticks */;
+			}
+			catch (Exception e)
+			{
+			}
+		}
+		return new PotionEffect(type, time, strength);
 	}
 
-	public static void deEnchantAll(Player p) {
-		for (PotionEffectType pet: PotionEffectType.values()){
+	public static void deEnchantAll(Player p)
+	{
+		for (PotionEffectType pet : PotionEffectType.values())
+		{
 			if (pet == null)
 				continue;
-			if (p.hasPotionEffect(pet)){
+			if (p.hasPotionEffect(pet))
+			{
 				p.removePotionEffect(pet);
 			}
 		}
