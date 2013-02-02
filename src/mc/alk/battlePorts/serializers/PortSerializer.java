@@ -19,7 +19,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 
 /**
- * 
+ *
  * @author alkarin
  *
  */
@@ -51,7 +51,6 @@ public class PortSerializer extends YamlSerializer {
 			//			System.out.println("keys " + keys);
 			if (keys != null){
 				for (String key: keys){
-					//					System.out.println("key= " + key);
 					try{
 						Port p = loadPort(maincs.getConfigurationSection(key));
 						if (p != null){
@@ -62,7 +61,7 @@ public class PortSerializer extends YamlSerializer {
 						e.printStackTrace();
 						Log.err("Couldnt load port " + key);
 					}
-				}				
+				}
 			}
 			Log.info(BattlePorts.getVersion() +" Loaded " + count+ " ports");
 		}
@@ -86,7 +85,7 @@ public class PortSerializer extends YamlSerializer {
 						e.printStackTrace();
 						Log.err("Couldnt load port " + key);
 					}
-				}				
+				}
 			}
 			Log.info(BattlePorts.getVersion() + " Loaded " + count+ " player portals");
 
@@ -116,7 +115,7 @@ public class PortSerializer extends YamlSerializer {
 		if (options != null && !options.isEmpty()){
 			for (String option : options){
 				p.addOptions(option);
-			}			
+			}
 		}
 		return p;
 	}

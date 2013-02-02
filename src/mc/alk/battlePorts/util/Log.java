@@ -11,22 +11,29 @@ public class Log {
 	public static void info(String msg){
 		if (log != null)
 			log.info(colorChat(msg));
-		else 
+		else
 			System.out.println(colorChat(msg));
 	}
 	public static void warn(String msg){
 		if (log != null)
 			log.warning(colorChat(msg));
-		else 
+		else
 			System.err.println(colorChat(msg));
 	}
 	public static void err(String msg){
 		if (log != null)
 			log.severe(colorChat(msg));
-		else 
+		else
 			System.err.println(colorChat(msg));
 	}
-	
+
+	public static void debug(String msg){
+		if (log != null)
+			log.severe(colorChat(msg));
+		else
+			System.err.println(colorChat(msg));
+	}
+
     public static String colorChat(String msg) {
         return msg.replaceAll("&", Character.toString((char) 167));
     }

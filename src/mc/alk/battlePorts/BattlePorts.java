@@ -14,12 +14,9 @@ import mc.alk.battlePorts.serializers.PlayerSerializer;
 import mc.alk.battlePorts.serializers.PortSerializer;
 import mc.alk.battlePorts.util.Log;
 import mc.alk.battlePorts.util.Util;
-import net.milkbowl.vault.Vault;
-import net.milkbowl.vault.chat.Chat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
@@ -52,7 +49,8 @@ public class BattlePorts extends JavaPlugin{
 		if (!dir.exists()){
 			dir.mkdirs();}
 
-		PluginLoader.loadPlugins();
+		PluginLoader pluginListener = new PluginLoader();
+		pluginListener.loadPlugins();
 		if (wep == null){
 			Log.err("[BattlePorts] Couldnt load WorldEdit, BattlePorts shutting down");
 			return;
@@ -65,23 +63,23 @@ public class BattlePorts extends JavaPlugin{
 		playerSerializer.setConfig(Util.load(getClass().getResourceAsStream("/default_files/players.yml"),dir.getPath() +"/players.yml"));
 
 		load();
-
 		getCommand("port").setExecutor(portExecutor);
 		portExecutor.setWorldEditPlugin(wep);
-		loadVault();
+
 		if (!PermissionController.hasChat()){
 			Log.err("[BattlePorts] needs Vault for Player portals but was not found.  Disabling player portal commands");
 		} else {
 			portalExecutor = new PortalExecutor(portController);
 		}
-		if (wgp == null){
+		if (wgp == null || wep == null || portalExecutor == null){
 			Log.err("[BattlePorts] needs WorldGuard for Player portals but WG was not found.  Disabling player portal commands");
 		} else {
 			portalExecutor.setWorldPlugins(wep,wgp);
 			getCommand("portal").setExecutor(portalExecutor);
 		}
 
-		Bukkit.getServer().getPluginManager().registerEvents(playerListener, this);
+		Bukkit.getPluginManager().registerEvents(pluginListener, this);
+		Bukkit.getPluginManager().registerEvents(playerListener, this);
 
 		Log.info("[" + pluginname + " v" + version +"]"  + " enabled!");
 	}
@@ -89,19 +87,6 @@ public class BattlePorts extends JavaPlugin{
 	@Override
 	public void onDisable() {
 		save();
-	}
-
-	private boolean loadVault(){
-		Vault vp = (Vault) Bukkit.getServer().getPluginManager().getPlugin("Vault");
-		if (vp != null) {
-			RegisteredServiceProvider<Chat> chatProvider = Bukkit.getServicesManager().getRegistration(Chat.class);
-			if (chatProvider==null || chatProvider.getProvider() == null){
-				return false;
-			} else {
-				PermissionController.setPermission(chatProvider.getProvider());
-			}
-		}
-		return true;
 	}
 
 	public static String getVersion() {

@@ -1,0 +1,17 @@
+name: BattlePorts
+
+main: mc.alk.battlePorts.BattlePorts
+
+version: 1.1.1
+
+author: Alkarin
+description: Efficient ports
+softdepend: [Vault]
+depend: [WorldEdit, WorldGuard]
+commands:
+    port:
+        aliases: [ports]
+        description: admin ports
+    portal:
+        aliases: [portals]
+        description: port for players
