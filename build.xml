@@ -3,7 +3,7 @@
 
      BattlePorts
      
-     Alkarin_v
+     Alkarin_v && MCForger
      ====================================================================== -->
 <project name="BattlePorts" default="build">
 	<description>
@@ -13,7 +13,7 @@
 	<!-- set global properties for this build -->
 	<property name="src" location="src" />
 	<property name="bin" location="bin" />
-	<property name="lib" location="../mcjars" />
+	<property name="lib" location="lib" />
 	<target name="init" depends="clean" description="create necessary folders">
 		<mkdir dir="${bin}" />
 	</target>
@@ -23,7 +23,7 @@
 				<pathelement path="${lib}" />
 				<pathelement location="${lib}/WorldEdit.jar" />
 				<pathelement location="${lib}/WorldGuard.jar" />
-				<pathelement location="${lib}/Bukkit.jar" />
+				<pathelement location="${lib}/craftbukkit-1.4.7-R0.2-20130122.235236-7.jar" />
 				<pathelement location="${lib}/Vault.jar" />
 			</classpath>
 		</javac>

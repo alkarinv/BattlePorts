@@ -1,5 +1,6 @@
 package mc.alk.battlePorts.objects;
 
-public class BlockRegion {
+public class BlockRegion
+{
 
 }
