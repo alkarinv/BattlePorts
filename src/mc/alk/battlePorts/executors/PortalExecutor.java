@@ -23,11 +23,11 @@ import com.sk89q.worldedit.bukkit.selections.Selection;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 /**
- * 
+ *
  * @author alkarin
- * 
+ *
  */
-public class PortalExecutor extends CustomCommandExecutor
+public class PortalExecutor extends CustomPortExecutor
 {
 	private WorldEditPlugin wep;
 	private WorldGuardPlugin wgp;
@@ -64,8 +64,7 @@ public class PortalExecutor extends CustomCommandExecutor
 		sendMessage(sender, PORT_INFO);
 	}
 
-	@MCCommand(cmds = { "rename" }, inGame = true, alphanum = { 2 },
-			usage = PORT_RENAME)
+	@MCCommand(cmds = { "rename" }, alphanum = { 2 },usage = PORT_RENAME)
 	public boolean portRename(Player p, PlayerPort port, String newName)
 	{
 		String oldName = port.getPortName();
@@ -75,8 +74,7 @@ public class PortalExecutor extends CustomCommandExecutor
 		return sendMessage(p, "&ePort &6" + oldName + "&e renamed &6" + newName);
 	}
 
-	@MCCommand(cmds = { "dest", "alterDest" }, inGame = true,
-			usage = PORT_ALTER_DEST)
+	@MCCommand(cmds = { "dest", "alterDest" },usage = PORT_ALTER_DEST)
 	public boolean portAlterDest(Player p, PlayerPort port)
 	{
 		if (!wgp.canBuild(p, p.getLocation()))
@@ -96,8 +94,7 @@ public class PortalExecutor extends CustomCommandExecutor
 		return sendMessage(p, "&ePort destination set to this location");
 	}
 
-	@MCCommand(cmds = { "source", "alterSource" }, inGame = true,
-			usage = PORT_ALTER_SOURCE)
+	@MCCommand(cmds = { "source", "alterSource" }, usage = PORT_ALTER_SOURCE)
 	public boolean portAlterSource(Player p, PlayerPort port)
 	{
 		Selection sel = wep.getSelection(p);
@@ -139,7 +136,7 @@ public class PortalExecutor extends CustomCommandExecutor
 		return sendMessage(p, "&ePort source set to the new location");
 	}
 
-	@MCCommand(cmds = { "info" }, inGame = true, usage = PORT_INFO)
+	@MCCommand(cmds = { "info" }, usage = PORT_INFO)
 	public boolean portInfo(Player p, PlayerPort port)
 	{
 		sendMessage(
@@ -151,7 +148,7 @@ public class PortalExecutor extends CustomCommandExecutor
 		return true;
 	}
 
-	@MCCommand(cmds = { "list" }, inGame = true, usage = PORT_LIST)
+	@MCCommand(cmds = { "list" }, usage = PORT_LIST)
 	public boolean portList(Player p)
 	{
 		Collection<PlayerPort> ports = pc.getPlayerPortals(p);
@@ -191,14 +188,14 @@ public class PortalExecutor extends CustomCommandExecutor
 		return true;
 	}
 
-	@MCCommand(cmds = { "delete" }, inGame = true, usage = PORT_DELETE)
+	@MCCommand(cmds = { "delete" }, usage = PORT_DELETE)
 	public boolean portDelete(Player p, PlayerPort port)
 	{
 		pc.deletePort(port);
 		return sendMessage(p, "&eYou have deleted port &6" + port.getPortName());
 	}
 
-	@MCCommand(cmds = { "create" }, inGame = true, usage = PORT_CREATE,
+	@MCCommand(cmds = { "create" }, usage = PORT_CREATE,
 			perm = "portal.create")
 	public boolean portCreate(Player p, String name)
 	{

@@ -22,11 +22,11 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
 /**
- * 
+ *
  * @author alkarin
- * 
+ *
  */
-public class PortExecutor extends CustomCommandExecutor
+public class PortExecutor extends CustomPortExecutor
 {
 	private WorldEditPlugin wep;
 	private final BattlePorts plugin;
@@ -109,8 +109,7 @@ public class PortExecutor extends CustomCommandExecutor
 			String op = args[i];
 			if (!Port.checkOption(op))
 			{
-				sendMessage(sender, "Port Option " + args[i]
-						+ " is not a valid option");
+				sendMessage(sender, "Port Option "+args[i]+" is not a valid option");
 				sendValidOptions(sender);
 				return true;
 			}
@@ -185,8 +184,7 @@ public class PortExecutor extends CustomCommandExecutor
 		return sendMessage(sender, "&eAdded options " + portOptions);
 	}
 
-	@MCCommand(cmds = { "first", "firstUse" }, op = true,
-			usage = PORT_ALTER_DEST)
+	@MCCommand(cmds = { "first", "firstUse" }, op = true, usage = PORT_ALTER_DEST)
 	public boolean portAlterFirstUse(Player p, Port port)
 	{
 		try
@@ -203,8 +201,7 @@ public class PortExecutor extends CustomCommandExecutor
 				"&ePort first use destination set to this location");
 	}
 
-	@MCCommand(cmds = { "dest", "alterDest" }, op = true,
-			usage = PORT_ALTER_DEST)
+	@MCCommand(cmds = { "dest", "alterDest" }, op = true, usage = PORT_ALTER_DEST)
 	public boolean portAlterDest(Player p, Port port)
 	{
 		try
@@ -213,10 +210,9 @@ public class PortExecutor extends CustomCommandExecutor
 		}
 		catch (Exception e)
 		{
-			return sendMessage(p,
-					"&4Cant set destination to be within the source");
+			return sendMessage(p, "&4Cant set destination to be within the source");
 		}
-		return sendMessage(p, "&ePort destination set to this location");
+		return sendMessage(p, "&2Port &6"+ port.getName() +"&2 destination set to this location");
 	}
 
 	@MCCommand(cmds = { "info" }, op = true, usage = PORT_INFO)
@@ -339,11 +335,9 @@ public class PortExecutor extends CustomCommandExecutor
 		return sendMessage(p, "&ePort source set to the new location");
 	}
 
-	@MCCommand(cmds = { "create" }, inGame = true, op = true,
-			usage = PORT_CREATE)
+	@MCCommand(cmds = { "create" }, op = true, usage = PORT_CREATE)
 	public boolean portCreate(Player p, String name, String[] args)
 	{
-		System.out.println("################    " + name);
 		Port port = pc.getPort(name);
 		if (port != null)
 		{
